@@ -16,20 +16,48 @@ productosEnVenta.push(new productos(2, 'buzo de hombre 1', 2500, 5));
 productosEnVenta.push(new productos(3, 'buzo de hombre 2', 1700, 0));
 productosEnVenta.push(new productos(4, 'bermuda de hombre', 2000, 8));
 
-
+console.log(productosEnVenta); /*CHEQUEAR QUE ESTEN TODOS LOS PRODUCTOS CORRECTAMENTE EN ARRAY*/
  /***********************************************       DATOS CLIENTE             ***********************************************************************/
+
+
 let nombre = prompt('Cual es tu nombre?');
 let apellido = prompt('Cual es tu apellido?');
 
 const saludoComprador = () => { 
     alert(`Hola! ${nombre} ${apellido} gracias por visitarnos`);
 }
-console.log(productosEnVenta);
-saludoComprador();
 
-let comprarItems;
+saludoComprador();    /* EJECUTAR SALUDO */
+ /***********************************************     BUSCAR ITEM                ***********************************************************************/
+
+
+resultado = ''; 
+const filtrar = () => {
+
+    const buscador = 'pepe';  /* PODES BUSCAR ITEMS DESDE ACA*/
+
+    const texto = buscador.toLowerCase();
+
+    
+    for(let producto of productosEnVenta){
+            let nombres = producto.nombre.toLowerCase();
+                if(nombres.indexOf(texto) !== -1){
+                    resultado += `nombre: ${producto.nombre} Valor: $${producto.precio} stock: ${producto.stock} `;
+            }
+    }
+
+    if(resultado === ''){
+        resultado += 'No se encontro el producto';
+    }
+}
+
+
+filtrar(); /* EJECUTAR BUSCADOR */
+console.log(resultado); /* MOSTRAR RESULTADO DE LA FUNCTION BUSCADOR */
 
  /***********************************************     FUNCION COMPRAR                ***********************************************************************/
+let comprarItems; /* GUARDA PROMPT DE CONTINUAR COMPRANDO */
+
 const comprar = () => {
     do{
     const agregarAlCarrito=prompt(`
@@ -86,5 +114,25 @@ const comprar = () => {
 alert(`Gracias por tu compra ${nombre}, el total de tu carrito es de $${carritoTotal}`)
 }
 
-comprar();
-console.log(itemsDentroCarrito);
+
+comprar(); /* EJECUTAR COMPRAR */
+console.log(itemsDentroCarrito); /* MOSTRAR ITEMS COMPRADOS */
+
+ /***********************************************     FUNCION COMPRAR                ***********************************************************************/
+
+const numeroPromo = 'descuento';  /** CODIGO DESCUENTO **/
+const descuentoCodigos = 500;
+
+const codigoPromo = () =>{
+    const clienteCodigoPromo= prompt('¿Tenes algun codigo de descuento?')
+    if(numeroPromo === clienteCodigoPromo ){
+        carritoTotal -= descuentoCodigos;
+        alert(`Tu codigo de descuento es de $${descuentoCodigos},
+        el total de tu carrito es de $${carritoTotal}`)
+    }else if(numeroPromo != clienteCodigoPromo){
+        alert('Lo sentimos, pero el codigo no es valido')
+    }
+
+}
+
+codigoPromo(); /* EJECUTAR CODIGO PROMO */
