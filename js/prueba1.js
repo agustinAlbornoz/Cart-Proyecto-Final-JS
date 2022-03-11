@@ -1,87 +1,90 @@
-const clothes1 = {
-    id: '1',
-    name:'Camisa de hombre',
-    price:1500,
-    stock: 2,
-}
-const clothes2 = {
-    id: '2',
-    name: 'buzo de hombre 1',
-    price: 1200,
-    stock: 0,
-}
-
-const clothes3 = {
-    id: '3',
-    name: 'buzo de hombre 2',
-    price: 1700,
-    stock: 3,
-}
-
-const clothes4 = {
-    id: '4',
-    name:'bermuda de hombre',
-    price: 2000,
-    stock: 5,
-}
-
-let buy;
-let cart= 0;
-
-function stockControl(parametro){
-    if(parametro.stock === 0){
-        parametro.price = 0;
-        alert(`The product ${parametro.name} dont have stock in this moment`)
-    }
-    else{
-        alert(`The product ${parametro.name} was added to the cart`)
+class productos {
+    constructor(id, nombre, precio, stock){
+        this.id = id;
+        this.nombre = nombre;
+        this.precio = precio;
+        this.stock = stock;
     }
 }
+let productosEnVenta = [];
+let carritoTotal = 0;
+const itemsDentroCarrito = [];
 
-do{
-const addToCart=prompt(`
-    select the product who you wish between the values 1 and 4
-    1. ${clothes1.name}   valor  $${clothes1.price}
-    2. ${clothes2.name}   valor  $${clothes2.price}
-    3. ${clothes3.name}   valor  $${clothes3.price}
-    4. ${clothes4.name}   valor  $${clothes4.price}
-    If you want to check the stock of the products,
-    use the corresponding numbers of the clothes and followed by a point
-    Example:" 1." `)
+ /***********************************************       PRODUCTOS                ***********************************************************************/
+productosEnVenta.push(new productos(1, 'Camisa de hombre', 1500, 2));
+productosEnVenta.push(new productos(2, 'buzo de hombre 1', 2500, 5));
+productosEnVenta.push(new productos(3, 'buzo de hombre 2', 1700, 0));
+productosEnVenta.push(new productos(4, 'bermuda de hombre', 2000, 8));
 
-    switch(addToCart){
+
+ /***********************************************       DATOS CLIENTE             ***********************************************************************/
+let nombre = prompt('Cual es tu nombre?');
+let apellido = prompt('Cual es tu apellido?');
+
+const saludoComprador = () => { 
+    alert(`Hola! ${nombre} ${apellido} gracias por visitarnos`);
+}
+console.log(productosEnVenta);
+saludoComprador();
+
+let comprarItems;
+
+ /***********************************************     FUNCION COMPRAR                ***********************************************************************/
+const comprar = () => {
+    do{
+    const agregarAlCarrito=prompt(`
+        Selecciona el producto que quieras comprar entre los valores 1 y 4
+        1. ${productosEnVenta[0].nombre}   valor  $${productosEnVenta[0].precio}
+        2. ${productosEnVenta[1].nombre}   valor  $${productosEnVenta[1].precio}
+        3. ${productosEnVenta[2].nombre}   valor  $${productosEnVenta[2].precio}
+        4. ${productosEnVenta[3].nombre}   valor  $${productosEnVenta[3].precio}`)
+
+    switch(agregarAlCarrito){
         case '1':
-            stockControl(clothes1)
-            cart+=clothes1.price;
-            break;
-        case '1.':
-            alert(`At this moment we have ${clothes1.stock} in stock`)
+            if(productosEnVenta[0].stock > 0){
+                carritoTotal+=productosEnVenta[0].precio;
+                productosEnVenta[0].stock -= 1;
+                itemsDentroCarrito.push(productosEnVenta[0]);
+                
+            }else if(productosEnVenta[0].stock === 0){
+                alert(`en este momento tenemos ${productosEnVenta[0].stock} stock, lo sentimos`)
+            }
             break;
         case '2':
-            stockControl(clothes2)
-            cart+=clothes2.price;
-            break;
-        case '2.':
-            alert(`At this moment we have ${clothes2.stock} in stock`)
+            if(productosEnVenta[1].stock > 0){
+                carritoTotal+=productosEnVenta[1].precio;
+                productosEnVenta[1].stock -= 1;
+                itemsDentroCarrito.push(productosEnVenta[1]);
+            }else if(productosEnVenta[1].stock === 0){
+                alert(`en este momento tenemos ${productosEnVenta[1].stock} stock, lo sentimos`)
+            }
             break;
         case '3':
-            stockControl(clothes3)
-            cart+=clothes3.price;
-            break;
-        case '3.':
-            alert(`At this moment we have ${prenda3.stock} in stock`)
+            if(productosEnVenta[2].stock > 0){
+                carritoTotal+=productosEnVenta[2].precio;
+                productosEnVenta[2].stock -= 1;
+                itemsDentroCarrito.push(productosEnVenta[2]);
+            }else if(productosEnVenta[2].stock === 0){
+                alert(`en este momento tenemos ${productosEnVenta[2].stock} stock, lo sentimos`)
+            }
             break;
         case '4':
-            stockControl(clothes4)
-            cart+=clothes4.price;
-            break;
-        case '4.':
-            alert(`At this moment we have ${clothes4.stock} in stock`)
+            if(productosEnVenta[3].stock > 0){
+                carritoTotal+=productosEnVenta[3].precio;
+                productosEnVenta[3].stock -= 1;
+                itemsDentroCarrito.push(productosEnVenta[3]);
+            }else if(productosEnVenta[3].stock === 0){
+                alert(`en este momento tenemos ${productosEnVenta[3].stock} stock, lo sentimos`)
+            }
             break;
         default: 
-            alert('You dont know what is 1 and 4?')
+            alert('lo sentimos, vuelve a intentar con un valor del 1 al 4')
             break;
     }
-    buy=prompt("If you wish take more products write YES; if you want to finish this purchase write NO") 
-}while(buy !=="NO")
-alert("Your totally purchase is  $ "+cart)
+    comprarItems=prompt("si queres seguir comprando escribe SI, si no, escribe NO") 
+}while(comprarItems !=="NO")
+alert(`Gracias por tu compra ${nombre}, el total de tu carrito es de $${carritoTotal}`)
+}
+
+comprar();
+console.log(itemsDentroCarrito);
