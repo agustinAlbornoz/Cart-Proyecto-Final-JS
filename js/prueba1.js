@@ -1,40 +1,24 @@
-class productos {
-    constructor(id, nombre, precio, stock){
-        this.id = id;
-        this.nombre = nombre;
-        this.precio = precio;
-        this.stock = stock;
-    }
-}
-let productosEnVenta = [];
+ /***********************************************       PRODUCTOS                ***********************************************************************/
+let productosEnVenta = [
+    {id: 0, nombre: 'CAMISA LIVIANA', precio: 1500, stock: 2, descripcion: 'Prenda manga larga con detalles de lineas verticales.'},
+    {id: 1, nombre: 'BUZO PASTEL', precio: 2500, stock: 5, descripcion: 'Prenda de cuello rodondo con estampado frontal.'},
+    {id: 2, nombre: 'BUZO URBANO', precio: 1700, stock: 0, descripcion: 'Prenda gris topo de cuello redondo.'},
+    {id: 3, nombre:'CHALECO', precio: 2000, stock: 8, descripcion: 'Prenda azul marino sin mangas.'},
+];
 let carritoTotal = 0;
 const itemsDentroCarrito = [];
 
- /***********************************************       PRODUCTOS                ***********************************************************************/
-productosEnVenta.push(new productos(1, 'Camisa de hombre', 1500, 2));
-productosEnVenta.push(new productos(2, 'buzo de hombre 1', 2500, 5));
-productosEnVenta.push(new productos(3, 'buzo de hombre 2', 1700, 0));
-productosEnVenta.push(new productos(4, 'bermuda de hombre', 2000, 8));
-
 console.log(productosEnVenta); /*CHEQUEAR QUE ESTEN TODOS LOS PRODUCTOS CORRECTAMENTE EN ARRAY*/
- /***********************************************       DATOS CLIENTE             ***********************************************************************/
 
 
-let nombre = prompt('Cual es tu nombre?');
-let apellido = prompt('Cual es tu apellido?');
 
-const saludoComprador = () => { 
-    alert(`Hola! ${nombre} ${apellido} gracias por visitarnos`);
-}
-
-saludoComprador();    /* EJECUTAR SALUDO */
  /***********************************************     BUSCAR ITEM                ***********************************************************************/
 
 
 resultado = ''; 
 const filtrar = () => {
 
-    const buscador = 'pepe';  /* PODES BUSCAR ITEMS DESDE ACA*/
+    const buscador = 'camisa de hombre';  /* PODES BUSCAR ITEMS DESDE ACA*/
 
     const texto = buscador.toLowerCase();
 
@@ -52,87 +36,129 @@ const filtrar = () => {
 }
 
 
-filtrar(); /* EJECUTAR BUSCADOR */
-console.log(resultado); /* MOSTRAR RESULTADO DE LA FUNCTION BUSCADOR */
+ /* EJECUTAR BUSCADOR */
+ /* MOSTRAR RESULTADO DE LA FUNCTION BUSCADOR */
 
  /***********************************************     FUNCION COMPRAR                ***********************************************************************/
-let comprarItems; /* GUARDA PROMPT DE CONTINUAR COMPRANDO */
 
-const comprar = () => {
-    do{
-    const agregarAlCarrito=prompt(`
-        Selecciona el producto que quieras comprar entre los valores 1 y 4
-        1. ${productosEnVenta[0].nombre}   valor  $${productosEnVenta[0].precio}
-        2. ${productosEnVenta[1].nombre}   valor  $${productosEnVenta[1].precio}
-        3. ${productosEnVenta[2].nombre}   valor  $${productosEnVenta[2].precio}
-        4. ${productosEnVenta[3].nombre}   valor  $${productosEnVenta[3].precio}`)
 
-    switch(agregarAlCarrito){
-        case '1':
-            if(productosEnVenta[0].stock > 0){
-                carritoTotal+=productosEnVenta[0].precio;
-                productosEnVenta[0].stock -= 1;
-                itemsDentroCarrito.push(productosEnVenta[0]);
-                
-            }else if(productosEnVenta[0].stock === 0){
-                alert(`en este momento tenemos ${productosEnVenta[0].stock} stock, lo sentimos`)
-            }
-            break;
-        case '2':
-            if(productosEnVenta[1].stock > 0){
-                carritoTotal+=productosEnVenta[1].precio;
-                productosEnVenta[1].stock -= 1;
-                itemsDentroCarrito.push(productosEnVenta[1]);
-            }else if(productosEnVenta[1].stock === 0){
-                alert(`en este momento tenemos ${productosEnVenta[1].stock} stock, lo sentimos`)
-            }
-            break;
-        case '3':
-            if(productosEnVenta[2].stock > 0){
-                carritoTotal+=productosEnVenta[2].precio;
-                productosEnVenta[2].stock -= 1;
-                itemsDentroCarrito.push(productosEnVenta[2]);
-            }else if(productosEnVenta[2].stock === 0){
-                alert(`en este momento tenemos ${productosEnVenta[2].stock} stock, lo sentimos`)
-            }
-            break;
-        case '4':
-            if(productosEnVenta[3].stock > 0){
-                carritoTotal+=productosEnVenta[3].precio;
-                productosEnVenta[3].stock -= 1;
-                itemsDentroCarrito.push(productosEnVenta[3]);
-            }else if(productosEnVenta[3].stock === 0){
-                alert(`en este momento tenemos ${productosEnVenta[3].stock} stock, lo sentimos`)
-            }
-            break;
-        default: 
-            alert('lo sentimos, vuelve a intentar con un valor del 1 al 4')
-            break;
+const comprar = (idProducto) => {
+    let findProducto =  productosEnVenta.find(producto => producto.id === idProducto);
+    comprarItemsBotones(findProducto.id);
+
+} //FUNCIONA
+
+
+const comprarItemsBotones = (parametro) => {
+    if(productosEnVenta[parametro].stock > 0){
+        carritoTotal+=productosEnVenta[parametro].precio;
+        productosEnVenta[parametro].stock -= 1;
+        itemsDentroCarrito.push(productosEnVenta[parametro]);
+        
+        
+    }else if(productosEnVenta[parametro].stock === 0){
+        document.getElementById(`btn-${parametro}`).innerHTML =
+        ` <button class="btn btn-primary" type="button" role="button" id="btn-0" onclick="comprar(0)" disable>Sin stock</button>
+`;
     }
-    comprarItems=prompt("si queres seguir comprando escribe SI, si no, escribe NO") 
-}while(comprarItems !=="NO")
-alert(`Gracias por tu compra ${nombre}, el total de tu carrito es de $${carritoTotal}`)
+
+    generarCards(itemsDentroCarrito);
+    generarCardsNumeros(carritoTotal);
+    mostrarTotalItems();
+
+}; // FUNCIONA PERFECTO
+
+
+
+/***********************************************     NODOS CARRITO                ***********************************************************************/
+
+function generarCards(productosAMostrar){
+    let acumuladorDeCards = ``;
+    productosAMostrar.forEach((elementoDelArray) =>{
+        acumuladorDeCards += `<li class="list-group-item d-flex justify-content-between lh-sm">
+        <div>
+            <h6 class="my-0">${elementoDelArray.nombre}</h6>
+            <small class="text-muted">${elementoDelArray.descripcion}</small>
+        </div>
+        <span class="text-muted">$${elementoDelArray.precio}</span>
+        </li>`;
+    });
+    mostrarCardsEnElHTML(acumuladorDeCards);
+    
+}// FUNCIONA 
+
+function mostrarCardsEnElHTML(cards) {
+    document.getElementById("carritoProductosDescripcion").innerHTML = cards;
+};
+// FUNCIONA
+
+function generarCardsNumeros(acumuladorNumeros){
+    acumuladorNumeros = `<span>Total</span>
+            <strong> $${carritoTotal} </strong>`;
+        mostrarNumerosProductosEnHTML(acumuladorNumeros);
+    }
+    // FUNCIONA
+
+function mostrarNumerosProductosEnHTML(precios) {
+    document.getElementById("cantidadItemsCarrito").innerHTML = precios;
+};
+    // FUNCIONA
+
+function mostrarTotalItems(){
+    document.getElementById("cantidadTotalItems").innerHTML =  itemsDentroCarrito.length;
 }
 
 
-comprar(); /* EJECUTAR COMPRAR */
-console.log(itemsDentroCarrito); /* MOSTRAR ITEMS COMPRADOS */
+// FUNCIONA
+function generarCardsDescuentos(){
+    descuentoFunction = `<div class="text-success">
+    <h6 class="my-0">codigo: ${numeroPromo}</h6>
+    <small>codigo valido</small>
+</div>
+<span class="text-success">${descuentoCodigos}</span>
+`;
+        mostrarNumerosProductosEnHTML(descuentoFunction);
+    }
 
- /***********************************************     FUNCION COMPRAR                ***********************************************************************/
+function generarCodigoDescuentoCarrito(E){
+    document.getElementById("generarDOMDescuento").innerHTML = E;
+}
 
-const numeroPromo = 'descuento';  /** CODIGO DESCUENTO **/
-const descuentoCodigos = 500;
+// FUNCION CODIGO DESCUENTO
 
-const codigoPromo = () =>{
-    const clienteCodigoPromo= prompt('¿Tenes algun codigo de descuento?')
-    if(numeroPromo === clienteCodigoPromo ){
-        carritoTotal -= descuentoCodigos;
-        alert(`Tu codigo de descuento es de $${descuentoCodigos},
-        el total de tu carrito es de $${carritoTotal}`)
+
+/***********************************************     FUNCION COMPRAR                ***********************************************************************/
+
+
+let numeroPromo = 'descuento';  /** CODIGO DESCUENTO **/
+let descuentoCodigos = -500;
+ 
+ function codigoPromo(){
+    const clienteCodigoPromo = document.getElementById("TextoCodigo").value;
+    if(numeroPromo == clienteCodigoPromo){
+        carritoTotal += descuentoCodigos;
+        generarCardsDescuentos();
+        generarCardsNumeros(carritoTotal);
+        document.getElementById("generarDOMDescuento").innerHTML =
+        `<div class="text-success">
+    <h6 class="my-0">codigo: ${numeroPromo}</h6>
+    <small>codigo valido</small>
+</div>
+<span class="text-success">${descuentoCodigos}</span>
+`;
+        numeroPromo = 2154655464;
     }else if(numeroPromo != clienteCodigoPromo){
-        alert('Lo sentimos, pero el codigo no es valido')
+        document.getElementById("generarDOMDescuento").innerHTML =
+        `<div class="text-danger">
+    <h6 class="my-0">codigo: ${clienteCodigoPromo}</h6>
+    <small>Es invalido</small>
+</div>
+`;
+    }else if (clienteCodigoPromo === numeroPromo){
+        alert('El codigo de descuento ya se utilizo')
     }
-
 }
 
-codigoPromo(); /* EJECUTAR CODIGO PROMO */
+
+; /* EJECUTAR CODIGO PROMO */
+
