@@ -62,15 +62,15 @@ const comprarItemsBotones = (parametro) => {
 `;
     }
 
-    generarCards(itemsDentroCarrito);
-    generarCardsNumeros(carritoTotal);
-    mostrarTotalItems();
+    generarCards(itemsDentroCarrito); //GENERA CARDS DE ITEMS COMPRADOS
+    generarCardsNumeros(carritoTotal);//GENERA PRECIO FINAL DE LOS PRODUCTOS COMPRADOS
+    mostrarTotalItems(); //GENERA NUMERO DE ITEMS EN CARRITO
 
 }; // FUNCIONA PERFECTO
 
 
 
-/***********************************************     NODOS CARRITO                ***********************************************************************/
+/***********************************************    CARRITO               ***********************************************************************/
 
 function generarCards(productosAMostrar){
     let acumuladorDeCards = ``;
@@ -85,31 +85,33 @@ function generarCards(productosAMostrar){
     });
     mostrarCardsEnElHTML(acumuladorDeCards);
     
-}// FUNCIONA 
+}
 
 function mostrarCardsEnElHTML(cards) {
     document.getElementById("carritoProductosDescripcion").innerHTML = cards;
 };
-// FUNCIONA
 
+// CARDS NUMEROS 
 function generarCardsNumeros(acumuladorNumeros){
     acumuladorNumeros = `<span>Total</span>
             <strong> $${carritoTotal} </strong>`;
         mostrarNumerosProductosEnHTML(acumuladorNumeros);
     }
-    // FUNCIONA
+    
 
 function mostrarNumerosProductosEnHTML(precios) {
     document.getElementById("cantidadItemsCarrito").innerHTML = precios;
 };
-    // FUNCIONA
+
+
+//ITEMS TOTALES EN CARRITO
 
 function mostrarTotalItems(){
     document.getElementById("cantidadTotalItems").innerHTML =  itemsDentroCarrito.length;
 }
 
 
-// FUNCIONA
+// CARD DESCUENTOS
 function generarCardsDescuentos(){
     descuentoFunction = `<div class="text-success">
     <h6 class="my-0">codigo: ${numeroPromo}</h6>
@@ -125,9 +127,6 @@ function generarCodigoDescuentoCarrito(E){
 }
 
 // FUNCION CODIGO DESCUENTO
-
-
-/***********************************************     FUNCION COMPRAR                ***********************************************************************/
 
 
 let numeroPromo = 'descuento';  /** CODIGO DESCUENTO **/
@@ -146,7 +145,7 @@ let descuentoCodigos = -500;
 </div>
 <span class="text-success">${descuentoCodigos}</span>
 `;
-        numeroPromo = 2154655464;
+        numeroPromo = 2154655464;  //PUSE CUALQUIER NUMERO PARA QUE NO ME SIGA TOMANDO EL CODIGO, !Crear array con diferentes codigos
     }else if(numeroPromo != clienteCodigoPromo){
         document.getElementById("generarDOMDescuento").innerHTML =
         `<div class="text-danger">
@@ -157,8 +156,4 @@ let descuentoCodigos = -500;
     }else if (clienteCodigoPromo === numeroPromo){
         alert('El codigo de descuento ya se utilizo')
     }
-}
-
-
-; /* EJECUTAR CODIGO PROMO */
-
+};
