@@ -1,15 +1,6 @@
- /***********************************************       PRODUCTOS                ***********************************************************************/
-let productosEnVenta = [
-    {id: 0, nombre: 'CAMISA LIVIANA', precio: 1500, stock: 2, descripcion: 'Prenda manga larga con detalles de lineas verticales.'},
-    {id: 1, nombre: 'BUZO PASTEL', precio: 2500, stock: 5, descripcion: 'Prenda de cuello rodondo con estampado frontal.'},
-    {id: 2, nombre: 'BUZO URBANO', precio: 1700, stock: 0, descripcion: 'Prenda gris topo de cuello redondo.'},
-    {id: 3, nombre:'CHALECO', precio: 2000, stock: 8, descripcion: 'Prenda azul marino sin mangas.'},
-];
-let carritoTotal = 0;
+
+const carritoTotal = 0;
 const itemsDentroCarrito = [];
-
-console.log(productosEnVenta); /*CHEQUEAR QUE ESTEN TODOS LOS PRODUCTOS CORRECTAMENTE EN ARRAY*/
-
 
 
  /***********************************************     BUSCAR ITEM                ***********************************************************************/
@@ -42,11 +33,6 @@ const filtrar = () => {
  /***********************************************     FUNCION COMPRAR                ***********************************************************************/
 
 
-const comprar = (idProducto) => {
-    let findProducto =  productosEnVenta.find(producto => producto.id === idProducto);
-    comprarItemsBotones(findProducto.id);
-
-} //FUNCIONA
 
 
 const comprarItemsBotones = (parametro) => {
@@ -54,6 +40,9 @@ const comprarItemsBotones = (parametro) => {
         carritoTotal+=productosEnVenta[parametro].precio;
         productosEnVenta[parametro].stock -= 1;
         itemsDentroCarrito.push(productosEnVenta[parametro]);
+        localStorage.setItem('keyItems', JSON.stringify(itemsDentroCarrito));
+        localStorage.setItem('keyPrecio', JSON.stringify(carritoTotal));
+
         
         
     }else if(productosEnVenta[parametro].stock === 0){
@@ -61,13 +50,19 @@ const comprarItemsBotones = (parametro) => {
         ` <button class="btn btn-primary" type="button" role="button" id="btn-0" onclick="comprar(0)" disable>Sin stock</button>
 `;
     }
-
+    storage();
     generarCards(itemsDentroCarrito); //GENERA CARDS DE ITEMS COMPRADOS
     generarCardsNumeros(carritoTotal);//GENERA PRECIO FINAL DE LOS PRODUCTOS COMPRADOS
     mostrarTotalItems(); //GENERA NUMERO DE ITEMS EN CARRITO
 
 }; // FUNCIONA PERFECTO
 
+
+const storage = () => {
+    localStorage.setItem('keyItems', JSON.stringify(itemsDentroCarrito));
+    localStorage.setItem('keyPrecio', JSON.stringify(carritoTotal));
+}
+/*************************************************************************************************************/
 
 
 /***********************************************    CARRITO               ***********************************************************************/
@@ -84,7 +79,6 @@ function generarCards(productosAMostrar){
         </li>`;
     });
     mostrarCardsEnElHTML(acumuladorDeCards);
-    
 }
 
 function mostrarCardsEnElHTML(cards) {
@@ -131,8 +125,8 @@ function generarCodigoDescuentoCarrito(E){
 
 let numeroPromo = 'descuento';  /** CODIGO DESCUENTO **/
 let descuentoCodigos = -500;
- 
- function codigoPromo(){
+
+function codigoPromo(){
     const clienteCodigoPromo = document.getElementById("TextoCodigo").value;
     if(numeroPromo == clienteCodigoPromo){
         carritoTotal += descuentoCodigos;
@@ -157,3 +151,5 @@ let descuentoCodigos = -500;
         alert('El codigo de descuento ya se utilizo')
     }
 };
+
+
