@@ -14,7 +14,7 @@
                    <!--NAVEGADOR-->
   <nav class="navbar sticky-top navbar-expand-md navbar-light  border-bottom">
     <div class="container">
-      <a class="navbar-brand" href="../index.html">TIENDA</a>
+      <a class="navbar-brand" href="index.html">TIENDA</a>
       <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#menuNavegacion">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -44,37 +44,40 @@
             </div>
 
             <div class="row g-5">
-                <div class="col-md-5 col-lg-4 order-md-last">
-                    <h4 class="d-flex justify-content-between align-items-center mb-3">
-                        <span class="text-primary">Tu carrito</span>
-                        <span id="cantidadTotalItems"  class="badge bg-primary rounded-pill">0</span>
-                    </h4>
-                    <ul id="carritoProductosDescripcion" class="list-group mb-3">
-                        <!--ACA ESTARIAN LOS PRODUCTOS COMPRADOS-->
-                        
-                        </ul>
-                         <!--ACA EMPIEZAN EL CODIGO DE SUMA DE PRECIOS-->
-                        <ul class="list-group mb-3">
-                            <li class="list-group-item d-flex justify-content-between bg-light" id="generarDOMDescuento">
-                              
-                        </li>
-                        <li id="cantidadItemsCarrito" class="list-group-item d-flex justify-content-between">
-                            <span>Total</span>
-                            <strong> $0 </strong>
-                        </li>
+              <div class="col-md-5 col-lg-4 order-md-last">
+                  <h4 class="d-flex justify-content-between align-items-center mb-3">
+                      <span class="text-primary">Tu carrito</span>
+                      <span id="cantidadTotalItems"  class="badge bg-primary rounded-pill">0</span>
+                  </h4>
+                  <ul id="carritoProductosDescripcion" class="list-group mb-3">
+                      <!--ACA ESTARIAN LOS PRODUCTOS COMPRADOS-->
+                      
+                      </ul>
+                       <!--ACA EMPIEZAN EL CODIGO DE SUMA DE PRECIOS-->
+                      <ul class="list-group mb-3">
+                          <li class="list-group-item d-flex justify-content-between bg-light" id="generarDOMDescuento">
+                            
+                      </li>
+                      <li id="cantidadItemsCarrito" class="list-group-item d-flex justify-content-between">
+                          <span>Total</span>
+                          <strong id="pepe"> $0 </strong>
+                      </li>
 
-                    <form class="card p-2">
-                        <div class="input-group">
-                            <input id="TextoCodigo" type="text" class="form-control" placeholder="Codigo promo">
-                            <button id="botonCodigo" type="button" class="btn btn-secondary" onclick="codigoPromo()">enviar</button>
-                        </div>
-                    </form>
-                </div>
+                  <form class="card p-2">
+                      <div class="input-group">
+                          <input id="TextoCodigo" type="text" class="form-control" placeholder="Codigo promo">
+                          <button id="botonCodigo" type="button" class="btn btn-secondary" onclick="codigoPromo()">enviar</button>
+                      </div>
+                  </form>
+              </div>
 
 
-    <script src="../js/prueba.js"></script>
-    <script src="../js/cardsVenta.js"></script>
-    <script src="../js/A.js"></script>
+<script src="./js/cardsVenta.js"></script>
+<script src="./js/BotonesComprar.js"></script>
+<script src="./js/carrito.js"></script>
+<script src="./js/buscador.js"></script>
+                
+                
 
 </body>
 </html>
