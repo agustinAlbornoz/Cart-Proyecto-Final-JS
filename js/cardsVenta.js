@@ -1,10 +1,18 @@
 /***********************************************       PRODUCTOS                ***********************************************************************/
+let productosEnVenta = [];
+
+fetch("./data.json")
+    .then((response) => response.json())
+    .then((data) => productosEnVenta = data.productosEnVenta);
+
+
+
 
 fetch('./data.json')
 .then((res) => res.json())
 .then ( (data) => {
     let acumuladorDeCards = ``;
-    data.forEach((elementoDelArray) => {
+    productosEnVenta.forEach((elementoDelArray) => {
     acumuladorDeCards += `<div class="col-12 col-md-6 col-lg-4">
     <div class="card" style="width: 18rem;">
     <img src=${elementoDelArray.img} class="card-img-top" alt=${elementoDelArray.alt}>
@@ -21,6 +29,10 @@ fetch('./data.json')
 });
 mostrarCardsEnVenta(acumuladorDeCards);
     })
+;
+
+
+
 
 
 /***********************************************     FUNC COMPRAR               ***********************************************************************/

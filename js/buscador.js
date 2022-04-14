@@ -21,3 +21,6 @@ const filtrar = () => {
     }
 }
 
+
+/* No lo coloque por que esto es para un proyecto mas grande*/
+

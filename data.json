@@ -1,6 +1,6 @@
-
-[
-    { "id": 0,
+{
+    "productosEnVenta" : [{ 
+    "id": 0,
     "nombre": "CAMISA LIVIANA",
     "genero": "Hombre",
     "precio": 1500,
@@ -99,3 +99,4 @@
         "img": "img/mujer/mujersweater.jpg",
         "alt": "sweater de mujer"}
 ]
+}

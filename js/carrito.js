@@ -14,7 +14,7 @@ function generarCards(e){
             <small class="text-muted">${elementoDelArray.descripcion}</small>
         </div>
         <span class="text-muted">$${elementoDelArray.precio}</span>
-        <button id=quitarBotton-${elementoDelArray.id} type="button"  class="btn-close" aria-label="Close" onclick="quitarItemCarrito(${elementoDelArray.id})"></button>
+        
         </li>
         `;
     });
@@ -25,7 +25,7 @@ function generarCards(e){
 }
 generarCards(storageItems); /* GENERO CARDS EN TIENDA*/
 function mostrarCardsEnElHTML(cards) {
-    document.getElementById("carritoProductosDescripcion").innerHTML = cards;
+    document.getElementById("carritoProductosDescripcion").innerHTML = cards
 };
 
 // CARDS NUMEROS 
@@ -66,8 +66,8 @@ function generarCodigoDescuentoCarrito(E){
 // FUNCION CODIGO DESCUENTO
 
 
-let numeroPromo = 'descuento';  /** CODIGO DESCUENTO **/
-let descuentoCodigos = -500;
+let numeroPromo = 'totocrack';  /** CODIGO DESCUENTO **/
+let descuentoCodigos = -1500;
 
 function codigoPromo(){
     const clienteCodigoPromo = document.getElementById("TextoCodigo").value;
